@@ -19,8 +19,7 @@ int binarySearch(int* array, int target, int min, int max)
 int recursBinarySearch(int* array, int target, int min, int max)
 {
 	if (min > max) return -1;
-	int index(0);
-	index = (max + min) / 2;
+	int index = (max + min) / 2;
 	if (array[index] == target) return index;
 		(array[index] > target) ? 
 		recursBinarySearch(array, target, min, max - 1)  : recursBinarySearch(array, target, min + 1, max);
