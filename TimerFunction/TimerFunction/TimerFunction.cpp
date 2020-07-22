@@ -1,0 +1,47 @@
+﻿#include <iostream>
+#include <array>
+#include <chrono>
+#include <algorithm>
+
+const int g_arrayElements = 10000;
+
+class Timer
+{
+private:
+
+	using clock_t = std::chrono::high_resolution_clock;
+	using second_t = std::chrono::duration<double, std::ratio<1> >;
+
+	std::chrono::time_point<clock_t> m_beg;
+
+public:
+	Timer() : m_beg(clock_t::now())
+	{
+	}
+
+	void reset()
+	{
+		m_beg = clock_t::now();
+	}
+
+	double elapsed() const
+	{
+		return std::chrono::duration_cast<second_t>(clock_t::now() - m_beg).count();
+	}
+};
+
+
+int main()
+{
+	std::array<int, g_arrayElements> array;
+	for (int i = 0; i < g_arrayElements; ++i)
+		array[i] = g_arrayElements - i;
+
+	Timer t;
+
+	std::sort(array.begin(), array.end());
+
+	std::cout << "Time taken: " << t.elapsed() << '\n';
+
+	return 0;
+}
